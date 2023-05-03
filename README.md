@@ -15,3 +15,13 @@ az ad sp create-for-rbac --name "MyFunctions" --role contributor --scopes /subsc
 > **SuscriptionId**  es Id de la suscripción de Azure. Este valor se puede obtener con el comando az cli `az account list -o table`
 > 
 > **MyApps**  es el nombre del resource group.
+
+
+El resultado del comando anterior, arroja(si todo sale bien) un resultado similar a la siguiente imagen:
+
+![dddd](https://github.com/jatuncarc/AzureFunctions/blob/master/img/azure-rbac.png?raw=true)
+
+Luego en el repositorio GitHub, ingresar a la opción **Settings** , luego a **Secrets and variables**, finalmente a **Actions** y agregar un nuevo secreto mediante el botón **New Repository secret**
+
+![text](https://github.com/jatuncarc/AzureFunctions/blob/master/img/Github-Actions-Azure-Credentials.png?raw=true)
+
