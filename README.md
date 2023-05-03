@@ -7,7 +7,7 @@
 az ad sp create-for-rbac --name "MyApplication" --role contributor --scopes /subscriptions/SubscriptionId/resourceGroups/MyApps --sdk-auth
 ```
 ```
- az ad sp create-for-rbac --name "MyFunctions" --role contributor --scopes /subscriptions/c8eb5574-f147-4230-978a-06596636cfee/resourceGroups/MyApps --sdk-auth
+az ad sp create-for-rbac --name "MyFunctions" --role contributor --scopes /subscriptions/c8eb5574-f147-4230-978a-06596636cfee/resourceGroups/MyApps --sdk-auth
 ```
 
 > **MyApplication** es el nombre de la aplicación a crear en Azure Active Directory
