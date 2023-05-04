@@ -60,4 +60,4 @@
 #         $profile = Reset-AzWebAppPublishingProfile `
 #             -ResourceGroupName ${{ env.RESOURCE_GROUP_NAME }} `
 #             -Name ${{ env.FUNCTION_APP_NAME }}
-#         $profile = "" 
+#         $profile = ""
