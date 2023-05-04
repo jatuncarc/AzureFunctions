@@ -12,7 +12,8 @@ on:
 # 2. Change these variables for your configuration:
 env:
   AZURE_FUNCTIONAPP_NAME: 'functionsdemoapps'   # set this to your function app name on Azure
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '/HelloWord/dotnet'       # set this to the path to your function app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './HelloWord/dotnet'       # set this to the path to your function app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_PACKAGE_PATH_OUTPUT: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
   DOTNET_VERSION: '6.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
 
 jobs:
@@ -36,9 +37,10 @@ jobs:
     - name: 'Resolve Project Dependencies Using Dotnet'
       shell: pwsh
       run: |
-        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-        dotnet build --configuration Release --output ./output
-        popd
+        # pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+        # dotnet build --configuration Release --output ./output
+        dotnet build --configuration Release --output './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH_OUTPUT }}'
+        # popd
 
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
