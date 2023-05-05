@@ -1,7 +1,7 @@
 name: Build, Test & Deploy
 on: 
-# push
-[workflow_dispatch]
+  # push
+  [workflow_dispatch]
 
 env:
   AZURE_FUNCTIONAPP_NAME: 'functionsdemoapps'   # set this to your function app name on Azure
