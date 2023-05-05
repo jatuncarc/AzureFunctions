@@ -41,11 +41,17 @@ jobs:
     #     #dotnet build --configuration Release --output '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
     #     # popd
 
-    - name: Build with dotnet
+    - name: Restore
       shell: pwsh
       run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           dotnet restore
+
+    - name: Build with dotnet
+      shell: pwsh
+      run: |
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          
           dotnet build --configuration Release --no-restore
 
     # - name: dotnet publish
