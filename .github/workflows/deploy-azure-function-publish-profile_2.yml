@@ -27,6 +27,11 @@ jobs:
          creds: ${{secrets.AZURE_CREDENTIALS}}
          enable-AzPSSession: true
 
+    - name: Instalar dependencias
+      shell: pwsh
+      run: |
+          Install-Module Get-AzWebAppPublishingProfile
+
     - name: Get publish Profile
       id: fncappx
       shell: pwsh
