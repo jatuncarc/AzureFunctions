@@ -26,7 +26,7 @@ jobs:
          enable-AzPSSession: true
 
     - name: Get publish Profile
-      id: fncapp
+      id: fncappx
       shell: pwsh
       run: |
         $profile = Get-AzWebAppPublishingProfile `
