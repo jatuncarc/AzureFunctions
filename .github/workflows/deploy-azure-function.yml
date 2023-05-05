@@ -53,7 +53,7 @@ jobs:
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           
           dotnet build --configuration Release --no-restore
-
+ 
     # - name: dotnet publish
     #   run:
     #       pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}' 
