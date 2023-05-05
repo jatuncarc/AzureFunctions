@@ -1,8 +1,8 @@
 name: Deploy DotNet project to Azure Function App
 
 on:
-  # [push] #cuando se hace push sobre la rama
-  [workflow_dispatch] #para ejecutar manualmente el job
+  [push] #cuando se hace push sobre la rama
+  # [workflow_dispatch] #para ejecutar manualmente el job
 
 env:
   AZURE_FUNCTIONAPP_NAME: 'functionsdemoapps'   # set this to your function app name on Azure
