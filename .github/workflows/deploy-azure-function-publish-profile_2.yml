@@ -31,7 +31,7 @@ jobs:
       shell: pwsh
       run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module Get-AzWebAppPublishingProfile
+          Install-Module SqlServer
 
     - name: Get publish Profile
       id: fncappx
