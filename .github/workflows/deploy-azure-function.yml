@@ -10,7 +10,7 @@ env:
   DOTNET_VERSION: '6.0.x'                   # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
 
 jobs:
-  build-and-deploy:
+  Deploy-Azure-Function-Windows:
     runs-on: windows-latest
     environment: dev
     steps:
@@ -22,10 +22,10 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
-    #   uses: actions/setup-dotnet@v3
-    #   with:
-    #     dotnet-version: ${{ env.DOTNET_VERSION }}
+    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
     # - name: 'Resolve Project Dependencies Using Dotnet'
     #   shell: pwsh
