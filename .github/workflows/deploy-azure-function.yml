@@ -28,16 +28,16 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+    # - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+    #   uses: actions/setup-dotnet@v3
+    #   with:
+    #     dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: 'Resolve Project Dependencies Using Dotnet'
       shell: pwsh
       run: |
         pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-        # dotnet build --configuration Release --output ./output
+        dotnet build --configuration Release --output ./output
         #dotnet build --configuration Release --output '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
         # popd
 
