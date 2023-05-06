@@ -31,7 +31,7 @@ jobs:
       shell: pwsh
       run: |
           Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module Az.Websites
+          Install-Module Az.Websites, Az.Accounts
 
     - name: Get publish Profile
       id: fncappx
