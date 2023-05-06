@@ -8,7 +8,7 @@ env:
   # AZURE_FUNCTIONAPP_NAME: 'functionsdemoappsLinux'  
  # AZURE_FUNCTIONAPP_PACKAGE_PATH: './HelloWord/dotnet'       # set this to the path to your function app project, defaults to the repository root
  # DOTNET_VERSION: '6.0.x'
-
+  xAZURE_SUBSCRIPTION_ID: 'c8eb5574-f147-4230-978a-06596636cfee'
   RESOURCE_GROUP_NAME: 'MyApps'
 
 jobs:
@@ -78,7 +78,8 @@ jobs:
         echo "FUNCTION_APP_PUB_PROFILE=$(az functionapp deployment list-publishing-profiles --subscription $AZURE_SUBSCRIPTION_ID --resource-group $FUNCTION_APP_RESOURCE_GROUP --name $FUNCTION_APP_NAME --xml)" >> $GITHUB_ENV    
       env:
         # AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        AZURE_SUBSCRIPTION_ID: "c8eb5574-f147-4230-978a-06596636cfee"
+        # AZURE_SUBSCRIPTION_ID: "c8eb5574-f147-4230-978a-06596636cfee"
+        AZURE_SUBSCRIPTION_ID: ${{ env.xAZURE_SUBSCRIPTION_ID }}
         # FUNCTION_APP_RESOURCE_GROUP: ${{ secrets.AZURE_FUNCTIONAPP_RESOURCEGROUP }}
         FUNCTION_APP_RESOURCE_GROUP: 'MyApps'
         FUNCTION_APP_NAME: ${{ env.AZURE_FUNCTIONAPP_NAME }}
