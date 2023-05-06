@@ -4,8 +4,8 @@ on:
   # [workflow_dispatch]
 
 env:
-  # AZURE_FUNCTIONAPP_NAME: 'functionsdemoapps'   # set this to your function app name on Azure
-  AZURE_FUNCTIONAPP_NAME: 'functionsdemoappsLinux'  
+  AZURE_FUNCTIONAPP_NAME: 'functionsdemoapps'   # set this to your function app name on Azure
+  # AZURE_FUNCTIONAPP_NAME: 'functionsdemoappsLinux'  
  # AZURE_FUNCTIONAPP_PACKAGE_PATH: './HelloWord/dotnet'       # set this to the path to your function app project, defaults to the repository root
  # DOTNET_VERSION: '6.0.x'
 
@@ -14,8 +14,8 @@ env:
 jobs:
   deploy-with-publish-profile:
     name: 'FunctionApp Build, Test & Deploy'
-    # runs-on: windows-latest
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+    #runs-on: ubuntu-latest
 
     steps:
     - name: Checkout the repo
