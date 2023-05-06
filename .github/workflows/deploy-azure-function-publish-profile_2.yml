@@ -4,8 +4,8 @@ on:
   # [workflow_dispatch]
 
 env:
-  # AZURE_FUNCTIONAPP_NAME: 'functionsdemoapps'   # set this to your function app name on Azure
-  AZURE_FUNCTIONAPP_NAME: 'functionsdemoappsLinux'  
+  AZURE_FUNCTIONAPP_NAME: 'functionsdemoapps'   # set this to your function app name on Azure
+  # AZURE_FUNCTIONAPP_NAME: 'functionsdemoappsLinux'  
  # AZURE_FUNCTIONAPP_PACKAGE_PATH: './HelloWord/dotnet'       # set this to the path to your function app project, defaults to the repository root
  # DOTNET_VERSION: '6.0.x'
 
@@ -14,8 +14,8 @@ env:
 jobs:
   deploy-with-publish-profile:
     name: 'FunctionApp Build, Test & Deploy'
-    # runs-on: windows-latest
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+    # runs-on: ubuntu-latest
 
     steps:
     - name: Checkout the repo
@@ -27,47 +27,59 @@ jobs:
          creds: ${{secrets.AZURE_CREDENTIALS}}
          enable-AzPSSession: true
 
-    - name: Instalar dependencias
-      shell: pwsh
-      run: |
-          Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module Az.Websites, Az.Accounts
+    # - name: Instalar dependencias
+    #   shell: pwsh
+    #   run: |
+    #       Set-PSRepository PSGallery -InstallationPolicy Trusted
+    #       Install-Module Az.Websites, Az.Accounts
 
-    - name: Get publish Profile
-      id: fncappx
-      shell: pwsh
-      run: |
-        $profile = Get-AzWebAppPublishingProfile `
-            -ResourceGroupName ${{ env.RESOURCE_GROUP_NAME }} `
-            -Name ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        $profile = $profile.Replace("`r", "").Replace("`n", "")
-        Write-Output "::set-output name=profile::$profile"
+    # - name: Get publish Profile
+    #   id: fncappx
+    #   shell: pwsh
+    #   run: |
+    #     $profile = Get-AzWebAppPublishingProfile `
+    #         -ResourceGroupName ${{ env.RESOURCE_GROUP_NAME }} `
+    #         -Name ${{ env.AZURE_FUNCTIONAPP_NAME }}
+    #     $profile = $profile.Replace("`r", "").Replace("`n", "")
+    #     Write-Output "::set-output name=profile::$profile"
 
-    - name: Get WebApp/FunctionApp publish profile
-      id: fncapp
-      uses: aliencube/publish-profile-actions@v1
-      env:
-        AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
-      with:
-        resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}
-        appName: ${{ env.AZURE_FUNCTIONAPP_NAME }}    
+    # - name: Get WebApp/FunctionApp publish profile
+    #   id: fncapp
+    #   uses: aliencube/publish-profile-actions@v1
+    #   env:
+    #     AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+    #   with:
+    #     resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}
+    #     appName: ${{ env.AZURE_FUNCTIONAPP_NAME }}    
               
-    - name: Show publish profile
-      shell: pwsh
-      run: |
-            echo ${{ steps.fncapp.outputs.profile }}
+    # - name: Show publish profile
+    #   shell: pwsh
+    #   run: |
+    #         echo ${{ steps.fncapp.outputs.profile }}
 
-    - name: Deploy FunctionApp
-      uses: Azure/functions-action@v1
-      with:
-        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        package: published
-        publish-profile: ${{ steps.fncapp.outputs.profile }}
+    # - name: Deploy FunctionApp
+    #   uses: Azure/functions-action@v1
+    #   with:
+    #     app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+    #     package: published
+    #     publish-profile: ${{ steps.fncapp.outputs.profile }}
 
-    - name: Reset publish Profile
-      shell: pwsh
+    # - name: Reset publish Profile
+    #   shell: pwsh
+    #   run: |
+    #     $profile = Reset-AzWebAppPublishingProfile `
+    #         -ResourceGroupName ${{ env.RESOURCE_GROUP_NAME }} `
+    #         -Name ${{ env.AZURE_FUNCTIONAPP_NAME }}
+    #     $profile = ""
+
+    - name: Download Azure Function app publishing profile
+      id: az_funcapp_publishing_profile
       run: |
-        $profile = Reset-AzWebAppPublishingProfile `
-            -ResourceGroupName ${{ env.RESOURCE_GROUP_NAME }} `
-            -Name ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        $profile = ""
+        echo "FUNCTION_APP_PUB_PROFILE=$(az functionapp deployment list-publishing-profiles --subscription $AZURE_SUBSCRIPTION_ID --resource-group $FUNCTION_APP_RESOURCE_GROUP --name $FUNCTION_APP_NAME --slot $FUNCTION_APP_SLOT_NAME --xml)" >> $GITHUB_ENV    
+      env:
+        # AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        AZURE_SUBSCRIPTION_ID: 'c8eb5574-f147-4230-978a-06596636cfee'
+        # FUNCTION_APP_RESOURCE_GROUP: ${{ secrets.AZURE_FUNCTIONAPP_RESOURCEGROUP }}
+        FUNCTION_APP_RESOURCE_GROUP: 'MyApps'
+        FUNCTION_APP_NAME: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        FUNCTION_APP_SLOT_NAME: ${{ env.AZURE_FUNCTIONAPP_NAME }}
