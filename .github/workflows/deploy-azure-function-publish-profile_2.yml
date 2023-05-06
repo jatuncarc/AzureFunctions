@@ -84,3 +84,11 @@ jobs:
         FUNCTION_APP_RESOURCE_GROUP: 'MyApps'
         FUNCTION_APP_NAME: ${{ env.AZURE_FUNCTIONAPP_NAME }}
         FUNCTION_APP_SLOT_NAME: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+
+    - name: Deploy Azure Functions app
+      uses: Azure/functions-action@v1
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: '.'
+        publish-profile: ${{ env.FUNCTION_APP_PUB_PROFILE }}
+        respect-funcignore: true
