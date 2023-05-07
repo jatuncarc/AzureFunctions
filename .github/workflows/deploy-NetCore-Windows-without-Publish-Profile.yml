@@ -1,4 +1,5 @@
-# name: Deploy DotNet project to Azure Function App
+# La autenticación a Azure se puede realizar con RBAC o con el publish profile para el deploy.
+
 name: Despliegue con publis profile manual
 on:
   [workflow_dispatch]
@@ -18,7 +19,7 @@ jobs:
       - name: "Checkout GitHub Action"
         uses: actions/checkout@v3
 
-      # Logueo a Azure mediante RBAC
+      # Logueo a Azure mediante RBAC. Si se utiliza el publish profile de la última linea, este step se puede comentar
       - name: "Login via Azure CLI"
         uses: azure/login@v1
         with:
@@ -43,4 +44,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
           package: "${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output"
-          # publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }} # Remove publish-profile to use Azure RBAC
+          # publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }} # Comentar si se utiliza RBAC.
