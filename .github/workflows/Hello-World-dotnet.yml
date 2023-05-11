@@ -1,19 +1,19 @@
-name: Create and Publish Docker Image
+name: Despliegue Hello World dotnet 
 
 on:
   workflow_call:
 
 env:
-  AZURE_FUNCTIONAPP_NAME: "functionsdemoappsLinux" # set this to your function app name on Azure
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: "./HelloWord/dotnet" # set this to the path to your function app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_NAME: "functionsdemoapps" # Nombre del function app
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: "./HelloWord/dotnet" # ruta donde se encuentra el proyecto
   DOTNET_VERSION: "6.0.x" # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
   
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest #windows-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Login via Az Module
         uses: azure/login@v1
@@ -27,8 +27,8 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: "Restaurar dependencias y compilar"
-        # shell: pwsh # For Linux, use bash
-        shell: bash
+        shell: pwsh # For Linux, use bash
+        # shell: bash
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           dotnet build --configuration Release --output ./output

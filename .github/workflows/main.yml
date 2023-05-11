@@ -1,4 +1,4 @@
-name: CI/CD.
+name: Despliegue Functions Principal
 on:
   push:
     branches:
@@ -8,13 +8,13 @@ on:
       - master
 
 jobs:
-  # JOB to run change detection
+  # Job "changes" es el job principal que contiene los filtros con los directorios que han sido cambiados
   changes:
     runs-on: ubuntu-latest
     # Required permissions
     permissions:
       pull-requests: read
-    # Set job outputs to values from filter step
+    # Generar nombre de jobs dependiendo de los filtros
     outputs:
       hello-world-dotnet: ${{ steps.filter.outputs.hello-world-dotnet }}
       hello-world-js: ${{ steps.filter.outputs.hello-world-js }}
@@ -30,14 +30,18 @@ jobs:
             hello-world-js :
               - 'HelloWord/js/**'
 
-  # JOB to build and test backend code
+  #***************************************************************************************#
+  # Job para despliegue Function HelloWord DotNet
+  #***************************************************************************************#
   hello-world-dotnet:
     needs: changes
     if: ${{ needs.changes.outputs.hello-world-dotnet == 'true' }}
-    uses: ./.github/workflows/Hellow-World-dotnet.yml
-    secrets: inherit
+    uses: ./.github/workflows/Hello-World-dotnet.yml
+    secrets: inherit #heredar los secretos del job principal a los secundarios
 
-  # JOB to build and test frontend code
+  #***************************************************************************************#
+  # Job para despliegue Function HelloWord JavaScript
+  #***************************************************************************************#
   hello-world-js:
     needs: changes
     if: ${{ needs.changes.outputs.hello-world-js == 'true' }}
