@@ -2,17 +2,6 @@ name: Create and Publish Docker Image
 
 on:
   workflow_call:
-    # inputs:
-    #   image_name:
-    #     required: true
-    #     type: string
-    #   tag:
-    #     type: string
-    # secrets:
-    #   registry_username:
-    #     required: true
-    #   registry_password:
-    #     required: true
 
 jobs:
   build:
@@ -21,33 +10,36 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-  #     - name: Setup BuildX
-  #       uses: docker/setup-buildx-action@v1
+      - name: Login via Az Module
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
+          enable-AzPSSession: true
 
-  #     - name: Login to the Registry
-  #       uses: docker/login-action@v1
-  #       with:
-  #         username: ${{secrets.registry_username}}
-  #         password: ${{secrets.registry_password}}
+      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-  #     - name: Set the tag
-  #       run: |
-  #         if [ -z "${{inputs.tag}}" ]
-  #         then
-  #           echo "final_tag=latest" >> $GITHUB_ENV
-  #         else
-  #           echo "final_tag=${{inputs.tag}}" >> $GITHUB_ENV
-  #         fi
+      - name: "Restaurar dependencias y compilar"
+        shell: pwsh # For Linux, use bash
+        run: |
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          dotnet build --configuration Release --output ./output
+          popd
 
-  #     - name: Build and Push the Image
-  #       uses: docker/build-push-action@v2
-  #       with:
-  #         context: .
-  #         push: true
-  #         tags: ${{secrets.registry_username}}/${{inputs.image_name}}:${{env.final_tag}}
+      - name: Descargar el publish profile para el Function
+        id: az_funcapp_publishing_profile
+        run: |
+          echo "FUNCTION_APP_PUB_PROFILE=$(az functionapp deployment list-publishing-profiles --subscription $AZURE_SUBSCRIPTION_ID --resource-group $FUNCTION_APP_RESOURCE_GROUP --name $FUNCTION_APP_NAME --xml)" >> $GITHUB_ENV
+        env:
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          FUNCTION_APP_RESOURCE_GROUP: ${{ env.RESOURCE_GROUP_NAME }}
+          FUNCTION_APP_NAME: ${{ env.AZURE_FUNCTIONAPP_NAME }}
 
-  # do-something-else:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - run: echo "Hello"
+      - name: Desplegar Azure Function
+        uses: Azure/functions-action@v1
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: "${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output"
+          publish-profile: ${{ env.FUNCTION_APP_PUB_PROFILE }}
