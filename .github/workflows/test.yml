@@ -37,6 +37,7 @@ jobs:
     # runs-on: ubuntu-latest
     # uses: ./.github/workflows/Hellow-World-dotnet.yml@master
     uses: ./.github/workflows/Hellow-World-dotnet.yml
+    secrets: inherit
 
   # JOB to build and test frontend code
   hello-world-js:
