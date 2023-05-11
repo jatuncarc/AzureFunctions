@@ -1,4 +1,4 @@
-name: Deploy Azure Function
+name: Despliegue con Publish Profile
 on:
   # push
   [workflow_dispatch]

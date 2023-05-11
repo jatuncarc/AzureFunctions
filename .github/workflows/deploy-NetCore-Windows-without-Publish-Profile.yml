@@ -1,6 +1,6 @@
 # La autenticación a Azure se puede realizar con RBAC o con el publish profile para el deploy.
 
-name: Despliegue con publis profile manual
+name: Despliegue sin publish profile
 on:
   [workflow_dispatch]
   # push:

@@ -5,9 +5,11 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: "functionsdemoapps" # Nombre del function app
+  RESOURCE_GROUP_NAME: "MyApps" #Nombre del grupo de recursos donde se encuentra el function app
   AZURE_FUNCTIONAPP_PACKAGE_PATH: "./HelloWord/dotnet" # ruta donde se encuentra el proyecto
   DOTNET_VERSION: "6.0.x" # set this to the dotnet version to use (e.g. '2.1.x', '3.1.x', '5.0.x')
-  
+
+
 jobs:
   build:
     runs-on: ubuntu-latest #windows-latest

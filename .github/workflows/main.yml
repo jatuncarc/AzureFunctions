@@ -1,4 +1,4 @@
-name: Despliegue Functions Principal
+name: Despliegue Principal
 on:
   push:
     branches:
@@ -26,9 +26,9 @@ jobs:
         with:
           filters: |
             hello-world-dotnet:
-              - 'HelloWord/dotnet/**'
+              - 'HelloWorld/dotnet/**'
             hello-world-js :
-              - 'HelloWord/js/**'
+              - 'HelloWorld/js/**'
 
   #***************************************************************************************#
   # Job para despliegue Function HelloWord DotNet
@@ -45,6 +45,5 @@ jobs:
   hello-world-js:
     needs: changes
     if: ${{ needs.changes.outputs.hello-world-js == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+    uses: ./.github/workflows/Hello-World-js.yml
+    secrets: inherit 
