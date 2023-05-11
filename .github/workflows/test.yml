@@ -37,8 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # - uses: actions/checkout@v3
-      uses: ./.github/workflows/HelloWorld/Hello-world-dotnet
-      
+      - uses: ./.github/workflows/HelloWorld/Hello-world-dotnet
 
   # JOB to build and test frontend code
   frontend:
@@ -47,4 +46,3 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
