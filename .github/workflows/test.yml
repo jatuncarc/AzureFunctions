@@ -17,7 +17,7 @@ jobs:
     # Set job outputs to values from filter step
     outputs:
       hello-world-dotnet: ${{ steps.filter.outputs.hello-world-dotnet }}
-      frontend: ${{ steps.filter.outputs.frontend }}
+      hello-world-js: ${{ steps.filter.outputs.hello-world-js }}
     steps:
       # For pull requests it's not necessary to checkout the code
       - uses: actions/checkout@v3
@@ -27,8 +27,8 @@ jobs:
           filters: |
             hello-world-dotnet:
               - 'HelloWord/dotnet/**'
-            frontend:
-              - 'frontend/**'
+            hello-world-js :
+              - 'HelloWord/js/**'
 
   # JOB to build and test backend code
   hello-world-dotnet:
@@ -36,13 +36,12 @@ jobs:
     if: ${{ needs.changes.outputs.hello-world-dotnet == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/workflows/HelloWorld/dotnet
+      - uses: ./.github/workflows/HelloWorld/Hellow-World-dotnet.yml
 
   # JOB to build and test frontend code
-  frontend:
+  hello-world-js:
     needs: changes
-    if: ${{ needs.changes.outputs.frontend == 'true' }}
+    if: ${{ needs.changes.outputs.hello-world-js == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
