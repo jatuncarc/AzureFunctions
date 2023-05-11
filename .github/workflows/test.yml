@@ -35,7 +35,7 @@ jobs:
     needs: changes
     if: ${{ needs.changes.outputs.hello-world-dotnet == 'true' }}
     runs-on: ubuntu-latest
-    uses: jatuncarc/AzureFunctions/.github/workflows/Hellow-World-dotnet.yml
+    uses: jatuncarc/AzureFunctions/.github/workflows/Hellow-World-dotnet.yml@main
 
   # JOB to build and test frontend code
   hello-world-js:
