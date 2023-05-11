@@ -32,9 +32,9 @@ jobs:
 
   # JOB to build and test backend code
   hello-world-dotnet:
-    needs: changes
-    if: ${{ needs.changes.outputs.hello-world-dotnet == 'true' }}
-    runs-on: ubuntu-latest
+    # needs: changes
+    # if: ${{ needs.changes.outputs.hello-world-dotnet == 'true' }}
+    # runs-on: ubuntu-latest
     # uses: ./.github/workflows/Hellow-World-dotnet.yml@master
     uses: ./.github/workflows/Hellow-World-dotnet.yml
 
