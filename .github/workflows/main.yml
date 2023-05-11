@@ -36,7 +36,7 @@ jobs:
   hello-world-dotnet:
     needs: changes
     if: ${{ needs.changes.outputs.hello-world-dotnet == 'true' }}
-    uses: ./.github/workflows/Hello-World-dotnet.yml
+    uses: ./.github/workflows/Hello-World-DotNet.yml
     secrets: inherit #heredar los secretos del job principal a los secundarios
 
   #***************************************************************************************#
@@ -45,5 +45,5 @@ jobs:
   hello-world-js:
     needs: changes
     if: ${{ needs.changes.outputs.hello-world-js == 'true' }}
-    uses: ./.github/workflows/Hello-World-js.yml
+    uses: ./.github/workflows/Hello-World-Js.yml
     secrets: inherit 
