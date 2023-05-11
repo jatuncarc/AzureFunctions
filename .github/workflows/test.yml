@@ -35,8 +35,8 @@ jobs:
     needs: changes
     if: ${{ needs.changes.outputs.hello-world-dotnet == 'true' }}
     runs-on: ubuntu-latest
-    steps:
-      - uses: ./.github/workflows/HelloWorld/Hellow-World-dotnet.yml
+    # steps:
+    uses: ./.github/workflows/HelloWorld/Hellow-World-dotnet.yml
 
   # JOB to build and test frontend code
   hello-world-js:
