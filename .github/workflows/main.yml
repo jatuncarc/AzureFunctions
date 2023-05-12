@@ -37,7 +37,7 @@ jobs:
     needs: changes
     if: ${{ needs.changes.outputs.hello-world-dotnet == 'true' }}
     uses: ./.github/workflows/Hello-World-DotNet.yml
-    secrets: inherit #heredar los secretos del job principal a los secundarios
+    # secrets: inherit #heredar los secretos del job principal a los secundarios
 
   #***************************************************************************************#
   # Job para despliegue Function HelloWord JavaScript
