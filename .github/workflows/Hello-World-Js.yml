@@ -13,7 +13,7 @@ on:
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: "./HelloWorld/js" # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: "16.x" # set this to the node version to use (supports 8.x, 10.x, 12.x)
-  AZURE_FUNCTIONAPP_NAME: "functionsdemoappsNode" # Nombre del function app
+  AZURE_FUNCTIONAPP_NAME: "functionsdemoappsNodess" # Nombre del function app
   # RESOURCE_GROUP_NAME: "functionsdemoappsNode_group" #Nombre del grupo de recursos donde se encuentra el function app
 
 jobs:
